@@ -8,25 +8,25 @@ const heroSlides = [
 		id: 1,
 		titulo: "NUEVO TRÁILER",
 		estado: "EN PRODUCCIÓN",
-		logo: "/img/hollywood_logo.png", /* <-- Cambia por el logo de tu segundo proyeto */
+		logo: "/img/hollywood_logo.webp", /* <-- Cambia por el logo de tu segundo proyeto */
 		video: "/video/hollywood.mp4",
-		poster: "/img/cartel_hollywood.png" /* <-- Pon la portada del segundo tráiler */
+		poster: "/img/cartel_hollywood.webp" /* <-- Pon la portada del segundo tráiler */
 	},
 	{
 		id: 2,
 		titulo: "NUEVO TRÁILER",
 		estado: "EN PRODUCCIÓN",
-		logo: "/img/raicesancestralesimg.png", /* <-- Cambia por el logo de tu segundo proyeto */
+		logo: "/img/raicesancestralesimg.webp", /* <-- Cambia por el logo de tu segundo proyeto */
 		video: "/video/raices_ancestrales.mp4",
-		poster: "/img/cartel_raices.png" /* <-- Pon la portada del segundo tráiler */
+		poster: "/img/cartel_raices.webp" /* <-- Pon la portada del segundo tráiler */
 	},
 	
 ];
 
 // 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
 const proyectos = [
-	{ titulo: "RAÍCES ANCESTRALES", estado: "Pre-producción", imagen: "/img/raices_ancestrales_portada.png" },
-	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/hollywood_portada.png" },
+	{ titulo: "RAÍCES ANCESTRALES", estado: "Pre-producción", imagen: "/img/raices_ancestrales_portada.webp" },
+	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/hollywood_portada.webp" },
 ];
 ---
 
@@ -177,7 +177,20 @@ const proyectos = [
 		&:hover { opacity: 1; transform: scale(1.1); color: var(--site-accent); }
 	}
 
-	.arrow { position: absolute; top: 50%; transform: translateY(-50%); color: white; padding: 1rem; opacity: 0.7; z-index: 10; cursor: pointer; border: none; background: none; display: none; @media (min-width: 1024px) { display: block; } &:hover { opacity: 1; } &.prev { left: 2%; } &.next { right: 2%; } }
+	.arrow { 
+		position: absolute; 
+		top: 50%; 
+		transform: translateY(-50%); 
+		color: white; padding: 1rem; 
+		opacity: 0.7; 
+		z-index: 10; 
+		cursor: pointer; 
+		border: none; 
+		background: none; 
+		display: block; 
+		@media (min-width: 1024px) 
+		{ display: block; } &:hover { opacity: 1; } &.prev { left: 2%; } &.next { right: 2%; } }
+
 	.dots { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; @media (min-width: 768px) { bottom: 2rem; } }
 	.dot { width: 8px; height: 8px; border-radius: 50%; background-color: rgba(255,255,255,0.3); transition: background-color 0.3s; cursor: pointer; &.active { background-color: var(--site-accent); } }
 

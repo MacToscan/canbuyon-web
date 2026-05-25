@@ -24,22 +24,33 @@ const { title, description } = Astro.props;
 	<body>
 		
 		<header class="site-header">
-			<div class="header-container">
-				
-				<div class="mobile-header">
+			<div class="mobile-header">
 					<a href="/" class="logo-link">
 						<img src="/img/logo_canbuyon.png" alt="Logo Cumbre Serena" class="header-logo-img" />
 						<div class="logo-text-group">
 							<span class="brand-title"><strong>CANBUYON</strong><span class="logo-accent">FILMS</span></span>
-							
 						</div>
 					</a>
 					<div class="mobile-actions">
-    <button aria-label="Menú">
-        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    </button>
-</div>
+						<button aria-label="Menú" id="hamburgerBtn">
+							<svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+						</button>
+					</div>
 				</div>
+				<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+			<button class="close-menu-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+				<svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+			</button>
+			<nav class="mobile-menu-nav">
+				<ul>
+					<li><a href="/">INICIO</a></li>
+					<li><a href="/about">QUIÉNES SOMOS</a></li>
+					<li><a href="/#proyectos">PROYECTOS</a></li>
+					<li><a href="/marcas">NUESTRAS MARCAS</a></li>
+					<li><a href="/contact">CONTACTO</a></li>
+				</ul>
+			</nav>
+		</div>
 
 				<div class="desktop-header">
 					<div class="logo-wrapper">
@@ -58,6 +69,7 @@ const { title, description } = Astro.props;
 								<li><a href="/">INICIO</a></li>
 								<li><a href="/about">QUIÉNES SOMOS</a></li>
 								<li><a href="/#proyectos">PROYECTOS</a></li>
+								<li><a href="/marcas">NUESTRAS MARCAS</a></li>
 								<li><a href="/contact">CONTACTO</a></li>
 							</ul>
 						</nav>
@@ -107,6 +119,39 @@ const { title, description } = Astro.props;
 
 	</body>
 </html>
+
+<script>
+	const hamburgerBtn = document.getElementById('hamburgerBtn');
+	const closeMenuBtn = document.getElementById('closeMenuBtn');
+	const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+	const mobileLinks = document.querySelectorAll('.mobile-menu-nav a');
+
+	// Al hacer clic en las 3 rayitas, abrimos el menú
+	if (hamburgerBtn && mobileMenuOverlay) {
+		hamburgerBtn.addEventListener('click', () => {
+			mobileMenuOverlay.classList.add('active');
+			document.body.style.overflow = 'hidden'; // Bloquea el scroll de fondo
+		});
+	}
+
+	// Al hacer clic en la "X", cerramos el menú
+	if (closeMenuBtn && mobileMenuOverlay) {
+		closeMenuBtn.addEventListener('click', () => {
+			mobileMenuOverlay.classList.remove('active');
+			document.body.style.overflow = ''; // Devuelve el scroll
+		});
+	}
+
+	// Crucial: Si hacen clic en una sección (como #proyectos), cerramos el menú automáticamente
+	mobileLinks.forEach(link => {
+		link.addEventListener('click', () => {
+			if (mobileMenuOverlay) {
+				mobileMenuOverlay.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+		});
+	});
+</script>
 
 <style is:global lang="scss">
 	/* ==========================================
@@ -240,6 +285,83 @@ const { title, description } = Astro.props;
 		display: flex; 
 		gap: 1rem; 
 		color: var(--site-text); 
+	}
+	#hamburgerBtn {
+		color: #ffffff;
+		background: transparent;
+		border: none;
+		padding: 0.5rem; /* Amplía la zona táctil para que sea más fácil darle en el móvil */
+		margin-right: 0.5rem; /* Lo alinea perfectamente con el borde derecho */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: color 0.2s ease, transform 0.2s ease;
+
+		&:hover, &:active {
+			color: var(--site-accent);
+			transform: scale(1.05);
+		}
+	}
+
+	/* ==========================================
+	   ESTILOS DEL MENÚ DESPLEGABLE MÓVIL
+	   ========================================== */
+	.mobile-menu-overlay {
+		position: fixed;
+		inset: 0;
+		background-color: rgba(10, 10, 10, 0.98); /* Fondo casi negro opaco */
+		z-index: 10000; /* Asegura que se abra por encima de todo */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.4s ease, visibility 0.4s ease;
+
+		/* Clase que añadiremos con JS para mostrarlo */
+		&.active {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.close-menu-btn {
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		color: #ffffff;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		
+		&:hover {
+			color: var(--site-accent);
+		}
+	}
+
+	.mobile-menu-nav {
+		ul {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 2.5rem; /* Separación generosa entre enlaces */
+		}
+
+		a {
+			font-family: var(--font-title);
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: #ffffff;
+			letter-spacing: 2px;
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: var(--site-accent);
+			}
+		}
 	}
 
 	.desktop-header { display: none; } 
@@ -387,4 +509,7 @@ const { title, description } = Astro.props;
 			margin: 0;
 		}
 	}
+
+	
 </style>
+
