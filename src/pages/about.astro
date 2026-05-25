@@ -104,60 +104,82 @@ const fotosRodaje = [
 	const nextBtn = document.getElementById('btsNext');
 
 	if (track && prevBtn && nextBtn) {
-		let speed = 0.8; // Velocidad normal (ajústalo a tu gusto)
+		let baseSpeed = 1; 
+		let currentSpeed = baseSpeed; 
+		let targetSpeed = baseSpeed; 
 		let isHovered = false;
-		let isScrollingManually = false;
-		let resumeTimeout;
+		let isFastForwarding = false; // Chivato para saber si estamos apretando el botón
 
-		// 1. MOTOR DE GIRO INFINITO
+		// 1. MOTOR DE GIRO CON INERCIA
 		function loopCarrusel() {
-			if (!isHovered && !isScrollingManually) {
-				track.scrollLeft += speed;
-				
-				// Si llegamos a la mitad, reiniciamos sin que se note
-				const mitadWidth = track.scrollWidth / 2;
-				if (track.scrollLeft >= mitadWidth) {
-					track.scrollLeft = 0;
-				}
+			if (!track) return;
+
+			// Suaviza la transición de velocidad (acelera y frena con estilo)
+			currentSpeed += (targetSpeed - currentSpeed) * 0.1;
+			track.scrollLeft += currentSpeed;
+			
+			const mitadWidth = track.scrollWidth / 2;
+			
+			if (track.scrollLeft >= mitadWidth) {
+				track.scrollLeft -= mitadWidth; 
+			} else if (track.scrollLeft <= 0) {
+				track.scrollLeft += mitadWidth;
 			}
+			
 			requestAnimationFrame(loopCarrusel);
 		}
 
 		requestAnimationFrame(loopCarrusel);
 
-		// 2. PAUSA AL PASAR EL RATÓN O TOCAR EN MÓVIL
-		track.addEventListener('mouseenter', () => isHovered = true);
-		track.addEventListener('mouseleave', () => isHovered = false);
-		track.addEventListener('touchstart', () => isHovered = true);
-		track.addEventListener('touchend', () => isHovered = false);
-
-		// 3. MARCHA RÁPIDA CON FLECHAS
-		function marchaRapida(desplazamiento) {
-			isScrollingManually = true;
-			clearTimeout(resumeTimeout);
-
-			let destino = track.scrollLeft + desplazamiento;
-			const mitadWidth = track.scrollWidth / 2;
-
-			// Control de rebobinado infinito
-			if (destino >= mitadWidth) {
-				track.scrollLeft = track.scrollLeft - mitadWidth;
-				destino = track.scrollLeft + desplazamiento;
-			} else if (destino < 0) {
-				track.scrollLeft = mitadWidth + track.scrollLeft;
-				destino = track.scrollLeft + desplazamiento;
+		// 2. PAUSA AL PASAR EL RATÓN (Solo si no estamos usando las flechas)
+		function setHover(state: boolean) {
+			isHovered = state;
+			if (!isFastForwarding) { 
+				targetSpeed = state ? 0 : baseSpeed;
 			}
-
-			track.scrollTo({ left: destino, behavior: 'smooth' });
-
-			// A los 800ms de soltar la flecha, vuelve a la velocidad de crucero
-			resumeTimeout = setTimeout(() => {
-				isScrollingManually = false;
-			}, 800);
 		}
 
-		nextBtn.addEventListener('click', () => marchaRapida(400));
-		prevBtn.addEventListener('click', () => marchaRapida(-400));
+		track.addEventListener('mouseenter', () => setHover(true));
+		track.addEventListener('mouseleave', () => setHover(false));
+		track.addEventListener('touchstart', () => setHover(true), { passive: true });
+		track.addEventListener('touchend', () => setHover(false));
+		track.addEventListener('touchcancel', () => setHover(false)); 
+
+		// 3. LA MECÁNICA DE MANTENER PULSADO
+		function startAcceleration(speed: number) {
+			isFastForwarding = true;
+			targetSpeed = speed; // Pisamos el acelerador a la velocidad que le pasemos (ej: 18 o -18)
+		}
+
+		function stopAcceleration() {
+			isFastForwarding = false;
+			// Al soltar el botón, comprobamos: si el ratón está sobre las fotos, se para (0). Si no, vuelve a velocidad de paseo.
+			targetSpeed = isHovered ? 0 : baseSpeed;
+		}
+
+		// EVENTOS PARA EL BOTÓN "SIGUIENTE" (Avanzar)
+		// Ordenadores
+		nextBtn.addEventListener('mousedown', () => startAcceleration(8));
+		nextBtn.addEventListener('mouseup', stopAcceleration);
+		nextBtn.addEventListener('mouseleave', stopAcceleration); // Por si arrastran el ratón fuera del botón
+		
+		// Móviles
+		nextBtn.addEventListener('touchstart', (e: Event) => { e.preventDefault(); startAcceleration(8); }, { passive: false });
+		nextBtn.addEventListener('touchend', stopAcceleration);
+		nextBtn.addEventListener('touchcancel', stopAcceleration);
+		nextBtn.addEventListener('contextmenu', (e: Event) => e.preventDefault()); // Evita que salga el menú de opciones en iOS al mantener pulsado
+
+		// EVENTOS PARA EL BOTÓN "ANTERIOR" (Rebobinar)
+		// Ordenadores
+		prevBtn.addEventListener('mousedown', () => startAcceleration(-18));
+		prevBtn.addEventListener('mouseup', stopAcceleration);
+		prevBtn.addEventListener('mouseleave', stopAcceleration);
+		
+		// Móviles
+		prevBtn.addEventListener('touchstart', (e: Event) => { e.preventDefault(); startAcceleration(-18); }, { passive: false });
+		prevBtn.addEventListener('touchend', stopAcceleration);
+		prevBtn.addEventListener('touchcancel', stopAcceleration);
+		prevBtn.addEventListener('contextmenu', (e: Event) => e.preventDefault());
 	}
 </script>
 
@@ -374,8 +396,10 @@ const fotosRodaje = [
 	.bts-track {
 		display: flex;
 		width: 100%;
-		overflow-x: hidden; /* Oculta la barra de desplazamiento fea */
+		overflow-x: auto; /* Fundamental para que iOS permita el movimiento */
 		scroll-behavior: auto; 
+		scrollbar-width: none; /* Oculta barra en Firefox */
+		&::-webkit-scrollbar { display: none; } /* Oculta barra en Safari/iPhone */
 	}
 
 	.bts-slide-set {
