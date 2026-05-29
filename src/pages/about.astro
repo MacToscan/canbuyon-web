@@ -3,12 +3,32 @@ import Layout from '../layouts/Layout.astro';
 
 // Aquí tienes la lista del equipo. Cuando tengas las fotos reales, 
 // solo tienes que subir la foto a la carpeta public/img/ y cambiar el nombre aquí.
+// SECCIÓN EQUIPO: Añade o quita elementos aquí dentro. Se generarán solos en la web.
 const equipo = [
-	{ nombre: "EDUARDO ALVAREZ", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/eduardopic.webp" },
-	{ nombre: "X", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/" },
-	{ nombre: "X", cargo: "PRODUCTOR EJECUTIVO", imagen: "/img/" },
-	{ nombre: "X", cargo: "GUIONISTA", imagen: "/img/" },
-
+	{ 
+		nombre: "Edurado Álvarez", 
+		cargo: "Productor ejecutivo | Director de cinematografía", 
+		bio: "Con una sólida trayectoria en dirección de fotografía, aporta una visión artística única y técnica avanzada para capturar imágenes que potencian cada historia que contamos.", 
+		src: "/img/eduardo.webp" 
+	},
+	{ 
+		nombre: "Ana Morales", 
+		cargo: "Directora de producción", 
+		bio: "Con una trayectoria extensa, aporta visión y liderazgo en cada rodaje.", 
+		src: "/img/ana.webp" 
+	},
+	{ 
+		nombre: "Carlos Díaz", 
+		cargo: "Director de fotografía", 
+		bio: "Destaca por su ojo artístico y su talento para capturar imágenes únicas.", 
+		src: "/img/carlos.webp" 
+	},
+	{ 
+		nombre: "Lucia Fernández", 
+		cargo: "Editora Senior", 
+		bio: "Especializada en postproducción, garantiza resultados visuales impactantes.", 
+		src: "/img/lucia.webp" 
+	},
 ];
 
 // 1. AÑADE AQUÍ TUS FOTOS DE RODAJES
@@ -18,6 +38,15 @@ const fotosRodaje = [
 	{ src: "/img/rodaje2.webp", alt: "Cámaras y equipo técnico" },
 	{ src: "/img/rodaje3.webp", alt: "Dirección de actores" },
 	{ src: "/img/rodaje4.webp", alt: "Preparación actrices" },
+	{ src: "/img/rodaje5.webp", alt: "Rodaje exterior" },
+	{ src: "/img/rodaje6.webp", alt: "Set iluminación" },
+	{ src: "/img/rodaje7.webp", alt: "Rodaje interior" },
+	{ src: "/img/rodaje8.webp", alt: "Exterior 1" },
+	{ src: "/img/rodaje9.webp", alt: "Equipo técnico" },
+	{ src: "/img/rodaje10.webp", alt: "Rodaje dubrovka" },
+	{ src: "/img/rodaje11.webp", alt: "Rodaje dubrovka" },
+	{ src: "/img/rodaje12.webp", alt: "Rodaje cámara" },
+	{ src: "/img/rodaje13.webp", alt: "Claqueta, acción" },
     // Puedes seguir añadiendo hasta 10, 15 o las que quieras...
 ];
 ---
@@ -29,35 +58,63 @@ const fotosRodaje = [
 		<section class="about-hero">
 			<div class="hero-container">
 				<span class="section-badge">LA PRODUCTORA</span>
-				<h1 class="hero-title">Cine con identidad, rigor y proyección.</h1>
+				<h1 class="hero-title">Excelencia en producción audiovisual profesional</h1>
 				
 				<div class="hero-description">
-					<p>Cumbre Serena nace de la unión de profesionales apasionados por la narrativa cinematográfica. Nuestra filosofía se basa en crear historias con una mirada creativa clara, respaldada por una gestión técnica y financiera precisa.</p>
-					<p>Trabajamos con talento emergente y consolidado para desarrollar proyectos que no solo emocionen, sino que tengan una base sólida para viajar internacionalmente.</p>
+					<p>Nuestro compromiso es crear proyectos audiovisuales que fusionan creatividad e innovación, impulsados por la pasión de contar historias que conectan y perduran.</p>
+					<p>Creamos películas que combinan arte y técnica para emocionar y sorprender.</p>
+					<p>En canbuyonfilms.com nuestra meta es transformar ideas en historias visuales poderosas, guiados por la pasión por la creatividad y el compromiso con la excelencia.</p>
 				</div>
 			</div>
 		</section>
 
-		<section class="team-section">
-			<div class="team-container">
-				<h2 class="team-title">EL EQUIPO</h2>
+		<section class="editorial-team">
+			<h2 class="section-title">EQUIPO</h2>
+			{equipo.map((miembro, index) => (
+				<article class={`member-block ${index % 2 !== 0 ? 'reverse' : ''}`}>
+					<div class="member-text">
+						<div class="text-content">
+							<span class="member-role">{miembro.cargo}</span>
+							<h2 class="member-name">{miembro.nombre}</h2>
+							<p class="member-bio">{miembro.bio}</p>
+						</div>
+					</div>
+					<div class="member-image">
+						<img src={miembro.src} alt={miembro.nombre ? `Retrato de ${miembro.nombre}` : "Retrato del equipo"} loading="lazy" />
+					</div>
+				</article>
+			))}
+		</section>
+
+		<section class="stats-section">
+			<div class="stats-container">
+				<div class="stats-header">
+					<h2>Fusionamos creatividad y técnica para narrar cada proyecto con autenticidad</h2>
+					<p>Aquí presentamos datos clave que reflejan nuestro impacto y el éxito de nuestras producciones</p>
+				</div>
 				
-				<div class="team-grid">
-					{equipo.map((miembro) => (
-						<article class="team-card">
-							<div class="img-wrapper">
-								<img src={miembro.imagen} alt={`Foto de ${miembro.nombre}`} />
-							</div>
-							<div class="info">
-								<h3>{miembro.nombre}</h3>
-								<p>{miembro.cargo}</p>
-							</div>
-						</article>
-					))}
+				<div class="stats-grid">
+					<article class="stat-card">
+						<span class="stat-number">130</span>
+						<h3 class="stat-title">Proyectos Finalizados</h3>
+						<p class="stat-desc">Número total de producciones audiovisuales exitosas realizadas con dedicación y calidad</p>
+					</article>
+					
+					<article class="stat-card">
+						<span class="stat-number">210</span>
+						<h3 class="stat-title">Clientes Satisfechos</h3>
+						<p class="stat-desc">Cantidad de clientes que han confiado en nosotros para llevar sus historias al cine</p>
+					</article>
+					
+					<article class="stat-card">
+						<span class="stat-number">320</span>
+						<h3 class="stat-title">Premios Obtenidos</h3>
+						<p class="stat-desc">Reconocimientos recibidos en festivales y certámenes del ámbito audiovisual</p>
+					</article>
 				</div>
-
 			</div>
 		</section>
+
 		<section class="bts-section">
 			<div class="bts-header">
 				<div class="header-content">
@@ -104,7 +161,7 @@ const fotosRodaje = [
 	const nextBtn = document.getElementById('btsNext');
 
 	if (track && prevBtn && nextBtn) {
-		let baseSpeed = 1; 
+		let baseSpeed = 2; 
 		let currentSpeed = baseSpeed; 
 		let targetSpeed = baseSpeed; 
 		let isHovered = false;
@@ -236,92 +293,181 @@ const fotosRodaje = [
 	}
 
 	/* ==========================================
-	   SECCIÓN EQUIPO (EN BLANCO - ESTILO INDEX)
+	   ESTILO EDITORIAL PARA EL EQUIPO
 	   ========================================== */
-	.team-section {
-		background-color: var(--test-bg-page); /* Fondo blanco */
-		padding: 5rem 1.5rem 8rem;
+	.editorial-team {
+		background-color: #000000;
+		width: 100%;
+		padding: 4rem 1.5rem; /* Añade espacio arriba y abajo del bloque entero */
 	}
 
-	.team-container {
-		max-width: 1200px;
+	.member-block {
+		display: flex;
+		flex-direction: column;
+		max-width: 1100px; /* Limita el ancho para que no pegue a los bordes */
+		margin: 0 auto 4rem auto; /* Lo centra y separa cada bloque del siguiente */
+		background-color: #0a0a0a; /* Le damos fondo a la tarjeta completa */
+		border-radius: 8px; /* Un toque suavizado opcional */
+		overflow: hidden; /* Asegura que la foto no se salga de las esquinas redondeadas */
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			min-height: 400px; /* Reduce la altura mínima para un look más compacto */
+			
+			&.reverse { 
+				flex-direction: row-reverse; 
+			}
+		}
+	}
+
+	.member-text {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 3rem 2rem;
+		background-color: transparent; /* El fondo ya lo tiene el contenedor padre */
+
+		@media (min-width: 768px) {
+			padding: 4rem;
+		}
+
+		.text-content {
+			width: 100%;
+			max-width: 450px;
+		}
+	}
+
+	.member-role {
+		color: var(--site-accent);
+		font-family: var(--font-title);
+		font-size: 0.8rem;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: 0.8rem;
+	}
+
+	.member-name {
+		font-family: var(--font-title);
+		font-size: 2.2rem;
+		color: #ffffff;
+		margin-bottom: 1.2rem;
+		line-height: 1.1;
+		text-transform: uppercase;
+	}
+
+	.member-bio {
+		color: rgba(255, 255, 255, 0.6);
+		line-height: 1.6;
+		font-size: 1rem;
+	}
+
+	.member-image {
+		width: 100%;
+		height: 50dvh; /* ¡Ahora sí! Pon aquí la altura que te dé la gana para el móvil */
+		
+		@media (min-width: 768px) { 
+			flex: 1; /* Le devolvemos el comportamiento flex solo en PC */
+			height: 60dvh; /* En PC se estirará para igualar al bloque de texto */
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover; 
+			object-position: center; 
+			display: block;
+		}
+	}
+
+	/* ==========================================
+	   SECCIÓN ESTADÍSTICAS (DATOS CLAVE)
+	   ========================================== */
+	.stats-section {
+		background-color: var(--site-bg);
+		padding: 6rem 1.5rem;
+		width: 100%;
+	}
+
+	.stats-container {
+		max-width: 1100px;
 		margin: 0 auto;
 	}
 
-	.team-title {
-		font-family: var(--font-title);
-		font-size: 1.2rem;
-		font-weight: 700;
-		letter-spacing: 4px;
-		color: #111; /* Letra oscura para el fondo blanco */
+	.stats-header {
+		width: 100%;
+		max-width: 800px;
+		margin: 0 auto 4rem auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center; /* Centra las cajas de texto (h2 y p) en el eje transversal */
 		text-align: center;
-		margin-bottom: 4rem;
+
+		h2 {
+			font-family: var(--font-title);
+			font-size: clamp(2rem, 4vw, 3.5rem);
+			color: #ffffff;
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+			
+		}
+
+		p {
+			font-family: var(--font-body); /* Usamos la tipografía serif para darle el toque clásico de la captura */
+			font-size: 1.2rem;
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.6;
+			
+		}
 	}
 
-	/* CSS GRID: MOBILE FIRST */
-	.team-grid {
+	.stats-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.5rem; 
+		grid-template-columns: 1fr; /* En móvil, 1 columna */
+		gap: 1.5rem;
 
 		@media (min-width: 768px) {
-			grid-template-columns: repeat(4, 1fr);
-			gap: 2.5rem;
+			grid-template-columns: repeat(3, 1fr); /* En tablet/PC, 3 columnas iguales */
+			gap: 2rem;
 		}
 	}
 
-	/* TARJETAS DE PERFIL */
-	.team-card {
-		.img-wrapper {
-			width: 100%;
-			aspect-ratio: 4 / 5; 
-			overflow: hidden;
-			background-color: #f0f0f0; /* Fondo gris clarito por si tarda la foto */
-			margin-bottom: 1rem; 
-			border-radius: 2px;
+	.stat-card {
+		background-color: #0a0a0a; /* Un negro ligeramente más claro para que resalte sobre el fondo */
+		padding: 3rem 2.5rem;
+		border-radius: 4px;
+		border: 1px solid rgba(255, 255, 255, 0.05); /* Borde sutil para enmarcar */
+		transition: transform 0.3s ease, border-color 0.3s ease;
 
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				filter: grayscale(100%); 
-				transition: filter 0.4s ease, transform 0.4s ease;
-			}
-		}
-
-		/* EFECTO HOVER PROFESIONAL */
 		&:hover {
-			.img-wrapper img {
-				filter: grayscale(0%);
-				transform: scale(1.03);
-			}
+			transform: translateY(-5px); /* Efecto de levitación al pasar el ratón */
+			border-color: rgba(255, 255, 255, 0.15);
 		}
+	}
 
-		.info {
-			text-align: left;
-			
-			h3 {
-				font-family: var(--font-title);
-				font-size: 0.9rem; 
-				font-weight: 700;
-				color: #222; /* Letra oscura sobre blanco */
-				letter-spacing: 0.5px;
-				margin-bottom: 0.2rem;
+	.stat-number {
+		display: block;
+		font-family: var(--font-title);
+		font-size: 3.5rem;
+		font-weight: 700;
+		color: #ffffff;
+		line-height: 1;
+		margin-bottom: 1rem;
+	}
 
-				@media (min-width: 768px) {
-					font-size: 1.1rem;
-				}
-			}
-			p {
-				font-family: var(--font-title);
-				font-size: 0.7rem; 
-				font-weight: 600;
-				color: var(--site-accent);
-				text-transform: uppercase;
-				letter-spacing: 1px;
-				margin: 0;
-			}
-		}
+	.stat-title {
+		font-family: var(--font-title);
+		font-size: 1.2rem;
+		color: #ffffff;
+		margin-bottom: 1rem;
+	}
+
+	.stat-desc {
+		font-family: var(--font-body);
+		font-size: 0.95rem;
+		color: rgba(255, 255, 255, 0.5);
+		line-height: 1.6;
 	}
 
 	/* ==========================================
@@ -426,8 +572,15 @@ const fotosRodaje = [
 			transition: transform 0.5s ease;
 			
 			&:hover {
-				transform: scale(1.05);
+				transform: scale(1.3);
 			}
 		}
 	}
+	.section-title { font-family: var(--font-title); 
+		font-size: 1.5rem; 
+		font-weight: 700; 
+		color: #ffffff; 
+		margin: 2rem; }
+
+	
 </style>

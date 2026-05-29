@@ -8,6 +8,14 @@ const heroSlides = [
 		id: 1,
 		titulo: "NUEVO TRÁILER",
 		estado: "EN PRODUCCIÓN",
+		logo: "/img/dubrovka_logo.webp", /* <-- Cambia por el logo de tu segundo proyeto */
+		video: "/video/dubrovka.mp4",
+		poster: "/img/cartel_dubrovka.webp" /* <-- Pon la portada del segundo tráiler */
+	},
+	{
+		id: 1,
+		titulo: "NUEVO TRÁILER",
+		estado: "EN PRODUCCIÓN",
 		logo: "/img/hollywood_logo.webp", /* <-- Cambia por el logo de tu segundo proyeto */
 		video: "/video/hollywood.mp4",
 		poster: "/img/cartel_hollywood.webp" /* <-- Pon la portada del segundo tráiler */
@@ -25,8 +33,9 @@ const heroSlides = [
 
 // 2. TUS PROYECTOS DE LA CUADRÍCULA INFERIOR
 const proyectos = [
+	{ titulo: "Dubrovka", estado: "Producción", imagen: "/img/dubrovka_portada.webp" },
+	{ titulo: "Esto no es hollywood", estado: "Producción", imagen: "/img/hollywood_portada.webp" },
 	{ titulo: "RAÍCES ANCESTRALES", estado: "Pre-producción", imagen: "/img/raices_ancestrales_portada.webp" },
-	{ titulo: "Carne y cal", estado: "Pre-producción", imagen: "/img/hollywood_portada.webp" },
 ];
 ---
 
@@ -109,6 +118,55 @@ const proyectos = [
 			</div>
 		</div>
 	</section>
+
+	<section class="home-services">
+			<div class="container">
+				
+				<div class="section-header align-center">
+					<h2>Contamos historias que cautivan y emocionan</h2>
+					<p>Una productora de cine profesional que une creatividad y experiencia para crear proyectos audiovisuales impactantes y únicos.</p>
+				</div>
+
+				<div class="services-grid">
+					
+					<article class="service-box">
+						<div class="service-img">
+							<img src="/img/rodaje12.webp" alt="Cámara de cine profesional" loading="lazy" />
+						</div>
+						<div class="service-content">
+							<h3>Producción de<br>Cine Profesional</h3>
+							<p>Creamos proyectos audiovisuales de alta calidad que transmiten emociones y mensajes claros.</p>
+						</div>
+					</article>
+
+					<article class="service-box">
+						<div class="service-img">
+							<img src="/img/rodaje10.webp" alt="Cámara de cine profesional" loading="lazy" />
+						</div>
+						<div class="service-content">
+							<h3>Narrativa visual creativa</h3>
+							<p>Desarrollamos conceptos originales que convierten ideas en experiencias visuales memorables.</p>
+						</div>
+					</article>
+
+					<article class="service-box">
+						<div class="service-img">
+							<img src="/img/rodaje11.webp" alt="Rodaje y claqueta" loading="lazy" />
+						</div>
+						<div class="service-content">
+							<h3>Edición y Postproducción<br>Avanzada</h3>
+							<p>Utilizamos técnicas innovadoras para perfeccionar cada detalle y lograr un acabado impecable.</p>
+						</div>
+					</article>
+
+				</div>
+
+				<div class="action-container">
+					<a href="/servicios" class="btn">NUESTROS SERVICIOS</a>
+				</div>
+
+			</div>
+		</section>
 </Layout>
 
 <script src="../scripts/slider.js"></script>
@@ -156,17 +214,42 @@ const proyectos = [
 		@media (min-width: 768px) { flex-direction: row; justify-content: space-between; align-items: flex-end; padding: 0 3rem; }
 	}
 
-	.info-group { display: flex; flex-direction: column; align-items: center; @media (min-width: 768px) { align-items: flex-start; } }
+	.info-group { 
+		display: flex; 
+		flex-direction: column; 
+		align-items: center; 
+		@media (min-width: 768px) { align-items: flex-start; } }
+	.release-status { 
+		font-family: var(--font-title); 
+		font-size: 0.9rem; 
+		color: rgba(255, 255, 255, 0.7); 
+		margin-top: 0.3rem; 
+		margin-left: 2rem;
+		letter-spacing: 1px; 
+	}
 	.movie-logo { width: 100%; max-width: 280px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7)); margin-bottom: 0.5rem; @media (min-width: 768px) { max-width: 380px; } @media (min-width: 1200px) { max-width: 450px; } }
-	.release-status { font-family: var(--font-title); color: #ffffff; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin: 0; padding-left: 0; @media (min-width: 768px) { font-size: 1rem; padding-left: 1.5rem; } }
+	
 
 	.action-group { display: flex; gap: 0.8rem; justify-content: center; align-items: center; }
 	
 	.btn {
-		display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 3px; border: none; font-family: var(--font-title); font-weight: 700; letter-spacing: 1px; cursor: pointer; white-space: nowrap; transition: background-color 0.3s, transform 0.2s;
-		padding: 0.6rem 1.2rem !important; font-size: 0.75rem !important; background-color: var(--site-accent); color: #ffffff;
+		display: inline-flex; 
+		align-items: center; 
+		justify-content: center; 
+		gap: 0.5rem; 
+		border-radius: 3px; 
+		border: none; 
+		font-family: var(--font-title); 
+		font-weight: 700; 
+		letter-spacing: 1px; cursor: pointer; 
+		white-space: nowrap; 
+		transition: background-color 0.3s, transform 0.2s;
+		padding: 0.6rem 1.2rem !important; 
+		font-size: 0.75rem !important; 
+		background-color: var(--site-accent); 
+		color: #ffffff;
 		&:hover { filter: brightness(1.1); transform: translateY(-2px); }
-		@media (min-width: 768px) { padding: 0.8rem 1.8rem !important; font-size: 0.85rem !important; }
+		@media (min-width: 768px) { padding: 0.6rem 1.2rem !important; font-size: 0.75rem !important; }
 	}
 
 	.hidden { display: none !important; }
@@ -198,13 +281,157 @@ const proyectos = [
 	.projects-section { padding: 4rem 1rem; background-color: var(--test-bg-page); }
 	.projects-container { max-width: 1400px; margin: 0 auto; }
 	.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; }
-	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: #ffffff; margin: 0; }
+	.section-title { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; color: #ffffff; margin: 2rem; }
 	.carousel-controls { display: flex; gap: 0.5rem; }
 	.ctrl-btn { background: none; border: 1px solid #ccc; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #555; transition: all 0.2s; &:hover { background-color: #f0f0f0; border-color: #999; } }
-	.projects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-	.project-card { width: calc(50% - 0.75rem); max-width: 220px; @media (min-width: 768px) { width: calc(33.333% - 1rem); } @media (min-width: 1024px) { width: calc(16.666% - 1.25rem); } }
-	.poster-img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; border-radius: 4px; margin-bottom: 0.8rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-	.project-info { text-align: left; }
-	.project-title { font-family: var(--font-title); font-size: 0.9rem; font-weight: 700; color: #333; text-transform: uppercase; margin: 0 0 0.2rem 0; line-height: 1.2; }
-	.project-status { font-family: var(--font-body); font-size: 0.8rem; color: #666; margin: 0; font-style: italic; }
+	.projects-grid { 
+		display: flex; 
+		flex-wrap: wrap; 
+		justify-content: center; 
+		gap: 1.5rem; }
+	.project-card { 
+		width: calc(50% - 0.75rem);
+		max-width: 220px;
+		background-color: rgb(22, 21, 21); 
+		 @media (min-width: 768px) 
+		 { width: calc(33.333% - 1rem); } 
+		 @media (min-width: 1024px) 
+		 { width: calc(16.666% - 1.25rem); } }
+	.poster-img { width: 100%; 
+		aspect-ratio: 4 / 6; 
+		object-fit:fill; 
+		display: block;  
+		margin-bottom: 0.8rem; 
+		box-shadow: 0 4px 10px rgb(47, 45, 45); }
+	.project-info { 
+		text-align: left; 
+	}
+	.project-title { 
+		font-family: var(--font-title); 
+		font-size: 0.9rem; 
+		font-weight: 700; 
+		color: #887f7f; 
+		text-transform: uppercase; 
+		margin: 0 0 0.2rem 0; 
+		line-height: 1.2;
+	padding-left: 0.5rem; }
+
+	.project-status { 
+		font-family: var(--font-title); 
+		font-size: 0.8rem; 
+		color: #887f7f; 
+		padding: 0 0 0.5rem 0.5rem;
+		margin: 0;
+		}
+
+	/* ==========================================
+	   SECCIÓN SERVICIOS (INDEX)
+	   ========================================== */
+	.home-services {
+		background-color: var(--site-bg);
+		padding: 6rem 1.5rem;
+	}
+
+	.home-services .container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	/* Cabecera centrada usando tu estilo */
+	.home-services .section-header {
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto 4rem auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		h2 {
+			font-family: var(--font-title);
+			font-size: clamp(2rem, 4vw, 3.5rem);
+			color: #ffffff;
+			margin-bottom: 1.5rem;
+			line-height: 1.1;
+		}
+
+		p {
+			font-family: var(--font-body);
+			font-size: 1.2rem;
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.6;
+		}
+	}
+
+	/* Cuadrícula de Cajitas */
+	.services-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		margin-bottom: 3rem;
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.service-box {
+		background-color: #000000; /* Fondo negro puro como en la captura */
+		border-radius: 4px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+
+		/* Magia para la tarjeta que no tiene foto */
+		&.text-only {
+			justify-content: center;
+		}
+	}
+
+	.service-img {
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+	}
+
+	.service-box:hover .service-img img {
+		transform: scale(1.05); /* Efecto zoom premium al pasar el ratón */
+	}
+
+	.service-content {
+		padding: 3rem 2rem;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		flex: 1;
+
+		h3 {
+			font-family: var(--font-title);
+			font-size: 1.4rem;
+			color: #ffffff;
+			margin-bottom: 1.2rem;
+			line-height: 1.3;
+		}
+
+		p {
+			font-family: var(--font-body);
+			font-size: 0.95rem;
+			color: rgba(255, 255, 255, 0.6);
+			line-height: 1.6;
+		}
+	}
+
+	.action-container {
+		text-align: center;
+		margin-top: 1rem;
+	}
 </style>

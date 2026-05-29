@@ -1,0 +1,269 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Puedes cambiar estas imágenes por las reales en public/img/
+const fotosServicios = [
+	{ src: "/img/rodaje5.webp", alt: "Rodaje con cámara en mano" },
+	{ src: "/img/rodaje6.webp", alt: "Iluminación en set de rodaje" },
+	{ src: "/img/rodaje7.webp", alt: "Equipo grabando en nave industrial" }
+];
+---
+
+<Layout title="Servicios - Canbuyon Films" description="Descubre nuestros servicios de producción audiovisual, cinematográfica y postproducción.">
+	<main class="services-page">
+
+		<section class="services-cards-section">
+			<div class="container">
+                <span class="section-badge">SERVICIOS</span>
+				
+				<div class="section-header align-left">
+					<h1>Producciones audiovisuales que inspiran y conmueven</h1>
+					<p>Descubre cómo combinamos creatividad y técnica para crear proyectos audiovisuales que superan expectativas y reflejan tu visión.</p>
+				</div>
+
+				<div class="cards-grid">
+					
+					<article class="service-card">
+						<div class="icon-placeholder">
+							<svg viewBox="0 0 24 24" width="32" height="32" stroke="white" stroke-width="2" fill="none"><circle cx="12" cy="7" r="3"></circle><circle cx="7" cy="17" r="3"></circle><circle cx="17" cy="17" r="3"></circle></svg>
+						</div>
+						<h3>Producción Cinematográfica</h3>
+						<p>Creamos películas y videos con una narrativa visual impactante que destaca por su calidad técnica y artística.</p>
+					</article>
+
+					<article class="service-card">
+						<div class="icon-placeholder">
+							<svg viewBox="0 0 24 24" width="32" height="32" stroke="white" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+						</div>
+						<h3>Postproducción Profesional</h3>
+						<p>Ofrecemos edición, corrección de color y efectos visuales que elevan cada proyecto a su máxima expresión.</p>
+					</article>
+
+					<article class="service-card">
+						<div class="icon-placeholder">
+							<svg viewBox="0 0 24 24" width="32" height="32" stroke="white" stroke-width="2" fill="none"><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="7" r="3"></circle><line x1="7" y1="17" x2="17" y2="17"></line><line x1="12" y1="12" x2="12" y2="22"></line></svg>
+						</div>
+						<h3>Dirección y Guion</h3>
+						<p>Desarrollamos guiones originales y dirigimos cada proyecto para asegurar una historia visual coherente y poderosa.</p>
+					</article>
+
+				</div>
+
+				<div class="action-container">
+					<a href="/contacto" class="btn-primary">MÁS INFO</a>
+				</div>
+				
+			</div>
+		</section>
+
+
+		<section class="projects-creation-section">
+			<div class="container">
+				
+				<div class="section-header align-center">
+					<h2>Creación de proyectos audiovisuales con impacto visual</h2>
+					<p>Comprometidos con contar historias que emocionan y conectan, fusionamos creatividad y experiencia para ofrecer producciones que superan expectativas y reflejan nuestra pasión por el cine.</p>
+				</div>
+
+				<div class="images-grid">
+					{fotosServicios.map((foto) => (
+						<div class="image-wrapper">
+							<img src={foto.src} alt={foto.alt} loading="lazy" />
+						</div>
+					))}
+				</div>
+
+			</div>
+		</section>
+
+	</main>
+</Layout>
+
+<style lang="scss">
+	/* ==========================================
+	   ESTILOS GENERALES PÁGINA SERVICIOS
+	   ========================================== */
+	.services-page {
+		background-color: var(--site-bg); /* Fondo oscuro general */
+		color: #ffffff;
+		padding-top: 4rem; /* Espacio bajo el header */
+	}
+
+	.container {
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	/* Cabeceras reutilizables */
+
+    .section-badge {
+		font-family: var(--font-title);
+		color: var(--site-accent);
+		letter-spacing: 4px;
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		display: block;
+		margin-bottom: 1.5rem;
+	}
+	.section-header {
+		width: 100%;
+		max-width: 800px;
+		margin: 0 auto 4rem auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center; /* Centra las cajas de texto (h2 y p) en el eje transversal */
+		text-align: center;
+		
+		&.align-left {
+			max-width: 800px;
+			text-align: center;
+		}
+		
+		&.align-center {
+			max-width: 900px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		h1, h2 {
+			font-family: var(--font-title);
+			font-size: clamp(2.5rem, 4vw, 4rem);
+			line-height: 1.1;
+			margin-bottom: 1.5rem;
+		}
+
+		p {
+			font-family: var(--font-body);
+			font-size: 1.2rem;
+			color: rgba(255, 255, 255, 0.7);
+			line-height: 1.6;
+		}
+	}
+
+	/* ==========================================
+	   SECCIÓN 1: CAJAS DE SERVICIOS
+	   ========================================== */
+	.services-cards-section {
+		padding: 4rem 0 6rem;
+        text-align: center;
+	}
+
+	.cards-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		margin-bottom: 4rem;
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.service-card {
+		background-color: #0a0a0a;
+		padding: 3rem 2.5rem;
+		border-radius: 4px;
+		transition: transform 0.3s ease, background-color 0.3s ease;
+
+		&:hover {
+			transform: translateY(-5px);
+			background-color: #111111;
+		}
+
+		.icon-placeholder {
+			margin-bottom: 2rem;
+			opacity: 0.9;
+		}
+
+		h3 {
+			font-family: var(--font-title);
+			font-size: 1.5rem;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			font-family: var(--font-body);
+			font-size: 1rem;
+			color: rgba(255, 255, 255, 0.6);
+			line-height: 1.6;
+		}
+	}
+
+	/* Botón "Más Info" */
+	.action-container {
+		text-align: center;
+	}
+
+	.btn-primary {
+		display: inline-flex; 
+		align-items: center; 
+		justify-content: center; 
+		gap: 0.5rem; 
+		border-radius: 3px; 
+		border: none; 
+		font-family: var(--font-title); 
+		font-weight: 700; 
+		letter-spacing: 1px; 
+		cursor: pointer; 
+		white-space: nowrap; 
+		text-decoration: none; /* Fundamental para que el enlace no se subraye */
+		text-transform: uppercase; /* Opcional, pero suele quedar mejor en botones */
+		transition: background-color 0.3s, transform 0.2s;
+		padding: 0.6rem 1.2rem !important; 
+		font-size: 0.75rem !important; 
+		background-color: var(--site-accent); 
+		color: #ffffff;
+		
+		&:hover { 
+			filter: brightness(1.1); 
+			transform: translateY(-2px); 
+		}
+		
+		@media (min-width: 768px) { 
+			padding: 0.6rem 1.2rem !important; 
+			font-size: 0.75rem !important; 
+		}
+	}
+
+	/* ==========================================
+	   SECCIÓN 2: CREACIÓN DE PROYECTOS (FOTOS)
+	   ========================================== */
+	.projects-creation-section {
+		padding: 4rem 0 8rem;
+		background-color: #000000; /* Leve contraste de fondo si lo deseas */
+	}
+
+	.images-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.image-wrapper {
+		width: 100%;
+		aspect-ratio: 4 / 5; /* Formato vertical como en la captura */
+		border-radius: 4px;
+		overflow: hidden;
+		
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+			
+			&:hover {
+				transform: scale(1.05); /* Zoom sutil al pasar el ratón */
+			}
+		}
+	}
+</style>
